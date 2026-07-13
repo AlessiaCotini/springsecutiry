@@ -16,6 +16,7 @@ import java.util.UUID;
 @ToString
 @Getter
 @Setter
+@Table(name = "utenti")
 public class User {
 
     @Id
