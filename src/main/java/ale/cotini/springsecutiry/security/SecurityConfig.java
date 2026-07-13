@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -15,10 +16,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
 
         // DISABILITO IL FORM DI DEFAULT
-        
+
         httpSecurity.formLogin(formLogin -> formLogin.disable() );
 
-        //ELIMINO I CONTROLLI AUTOMATICI DI SPRING SECURITY
+        //DISABILITO LE SESSIONI
+
+        httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        //DISABILITIAMO ANCHE DA ATTACCHI CSRF
+
+        httpSecurity.csrf(csrf -> csrf.disable());
+
+        //ELIMINO I CONTROLLI AUTOMATICI DI SPRING SECURITY - quindi poi non interverrà sulle richieste
 
         httpSecurity.authorizeHttpRequests(req -> req.requestMatchers("/**").permitAll());
 
