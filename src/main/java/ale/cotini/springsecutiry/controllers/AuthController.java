@@ -21,6 +21,9 @@ public class AuthController {
     public LoginResponseDTO login(@RequestBody LoginDTO login){
        return new LoginResponseDTO(this.authService.checkCredentialAndGenerateToken(login));
     }
+
+
+
 }
 
 
